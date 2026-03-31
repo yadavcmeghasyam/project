@@ -1,0 +1,15 @@
+112,NoteBook,50.0,3.0
+100,Pen,10.0,4.8
+103,Sanitiser,30.0,4.6
+108,Water Bottle,500.0,4.2
+101,Bag,2000.0,3.9
+115,Desktop Lamp,1200.0,4.5
+121,Wireless Mouse,850.0,4.3
+105,Sticky Notes,45.0,4.7
+119,Backpack Raincover,350.0,4.1
+110,Mechanical Pencil,85.0,4.4
+122,Desk Organizer,450.0,4.6
+128,Highlighters (6pk),120.0,4.9
+130,USB Flash Drive,600.0,4.4
+135,Laptop Stand,1500.0,4.7
+142,Paper Clips,25.0,4.0

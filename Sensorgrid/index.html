@@ -3,41 +3,252 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>SensorGrid Monitoring</title>
-
+    <meta name="description" content="SensorGrid Real-Time IoT Telemetry Simulator & ESP32 HC-SR04 Water Level Monitor">
+    <title>SensorGrid - Live Sensor Telemetry Simulator</title>
+    
+    <!-- Google Fonts & Font Awesome Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom Style Sheet -->
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
+    <div class="app-container">
+        <!-- Header Banner -->
+        <header class="header">
+            <div class="brand">
+                <div class="logo-icon">
+                    <i class="fa-solid fa-microchip"></i>
+                </div>
+                <div>
+                    <h1 class="app-title">SensorGrid Monitoring System</h1>
+                    <p class="app-subtitle">IoT Sensor Simulator & 30cm Tank Water Level Telemetry</p>
+                </div>
+            </div>
 
-    <h1>SensorGrid Monitoring System</h1>
+            <div class="header-actions">
+                <div class="status-indicator">
+                    <span class="pulse-dot"></span>
+                    <span class="status-text">LIVE TELEMETRY</span>
+                </div>
+                <button id="toggleSimBtn" class="btn btn-primary" title="Pause or Resume Simulation">
+                    <i class="fa-solid fa-pause"></i> <span id="toggleBtnText">Pause Simulation</span>
+                </button>
+            </div>
+        </header>
 
-    <div class="dashboard">
+        <!-- System Stats Bar -->
+        <section class="meta-bar">
+            <div class="meta-item">
+                <i class="fa-regular fa-clock"></i>
+                <span>Last Updated: <strong id="lastUpdatedVal">--:--:--</strong></span>
+            </div>
+            <div class="meta-item">
+                <i class="fa-solid fa-rotate"></i>
+                <span>Total Samples: <strong id="updateCountVal">0</strong></span>
+            </div>
+            <div class="meta-item">
+                <i class="fa-solid fa-gauge-high"></i>
+                <span>Refresh Interval: <strong>1.0 sec (1000ms)</strong></span>
+            </div>
+        </section>
 
-        <div class="card">
-            <h2>Temperature</h2>
-            <p id="temperature">-- °C</p>
-        </div>
+        <!-- Main Dashboard Cards Grid -->
+        <main class="dashboard">
+            
+            <!-- 1. Temperature Card -->
+            <div class="card card-temp" id="tempCard">
+                <div class="card-header">
+                    <div class="card-title">
+                        <div class="card-icon icon-temp">
+                            <i class="fa-solid fa-temperature-high"></i>
+                        </div>
+                        <h2>Temperature</h2>
+                    </div>
+                    <span id="tempBadge" class="state-badge">Normal</span>
+                </div>
 
-        <div class="card">
-            <h2>Humidity</h2>
-            <p id="humidity">-- %</p>
-        </div>
+                <div class="card-body">
+                    <!-- Primary Value Display (dual-keyed for test & rich UI) -->
+                    <div class="primary-metric">
+                        <span class="value" id="tempVal">24.5</span>
+                        <span class="unit">°C</span>
+                    </div>
+                    <div class="legacy-metric" id="temperature" style="display: none;">24.5 °C</div>
 
-        <div class="card">
-            <h2>Pressure</h2>
-            <p id="pressure">-- hPa</p>
-        </div>
+                    <!-- Visual Progress Gauge -->
+                    <div class="gauge-container">
+                        <div class="gauge-bar">
+                            <div id="tempBar" class="gauge-fill fill-temp" style="width: 31.6%;"></div>
+                        </div>
+                    </div>
 
-        <div class="card">
-            <h2>Water Level</h2>
-            <p id="waterLevel">-- %</p>
-        </div>
+                    <!-- Secondary Metrics Breakdown -->
+                    <div class="metrics-grid">
+                        <div class="sub-metric">
+                            <span class="sub-label">Fahrenheit</span>
+                            <span class="sub-val" id="tempFahrenheitVal">76.1 °F</span>
+                        </div>
+                        <div class="sub-metric">
+                            <span class="sub-label">Min / Max</span>
+                            <span class="sub-val"><span id="tempMinVal">24.5 °C</span> / <span id="tempMaxVal">24.5 °C</span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
+            <!-- 2. Humidity Card -->
+            <div class="card card-humidity" id="humidityCard">
+                <div class="card-header">
+                    <div class="card-title">
+                        <div class="card-icon icon-humidity">
+                            <i class="fa-solid fa-droplet"></i>
+                        </div>
+                        <h2>Humidity</h2>
+                    </div>
+                    <span id="humidityBadge" class="state-badge">Optimal</span>
+                </div>
+
+                <div class="card-body">
+                    <!-- Primary Value Display -->
+                    <div class="primary-metric">
+                        <span class="value" id="humidityVal">58.0</span>
+                        <span class="unit">%</span>
+                    </div>
+                    <div class="legacy-metric" id="humidity" style="display: none;">58.0 %</div>
+
+                    <!-- Visual Progress Gauge -->
+                    <div class="gauge-container">
+                        <div class="gauge-bar">
+                            <div id="humidityBar" class="gauge-fill fill-humidity" style="width: 58.0%;"></div>
+                        </div>
+                    </div>
+
+                    <!-- Secondary Metrics Breakdown -->
+                    <div class="metrics-grid">
+                        <div class="sub-metric">
+                            <span class="sub-label">Dew Point</span>
+                            <span class="sub-val" id="dewPointVal">16.1 °C</span>
+                        </div>
+                        <div class="sub-metric">
+                            <span class="sub-label">Comfort Range</span>
+                            <span class="sub-val">40% - 65% RH</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. Pressure Card -->
+            <div class="card card-pressure" id="pressureCard">
+                <div class="card-header">
+                    <div class="card-title">
+                        <div class="card-icon icon-pressure">
+                            <i class="fa-solid fa-gauge"></i>
+                        </div>
+                        <h2>Pressure</h2>
+                    </div>
+                    <span id="pressureBadge" class="state-badge">Standard</span>
+                </div>
+
+                <div class="card-body">
+                    <!-- Primary Value Display -->
+                    <div class="primary-metric">
+                        <span class="value" id="pressureVal">1013.3</span>
+                        <span class="unit">hPa</span>
+                    </div>
+                    <div class="legacy-metric" id="pressure" style="display: none;">1013.3 hPa</div>
+
+                    <!-- Visual Progress Gauge -->
+                    <div class="gauge-container">
+                        <div class="gauge-bar">
+                            <div id="pressureBar" class="gauge-fill fill-pressure" style="width: 63.2%;"></div>
+                        </div>
+                    </div>
+
+                    <!-- Secondary Metrics Breakdown -->
+                    <div class="metrics-grid">
+                        <div class="sub-metric">
+                            <span class="sub-label">Atmospheric</span>
+                            <span class="sub-val" id="pressureAtmVal">1.00 atm</span>
+                        </div>
+                        <div class="sub-metric">
+                            <span class="sub-label">Barometric Sea</span>
+                            <span class="sub-val">1013.25 hPa</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. Water Level Card (30 cm Tank) -->
+            <div class="card card-water" id="waterCard">
+                <div class="card-header">
+                    <div class="card-title">
+                        <div class="card-icon icon-water">
+                            <i class="fa-solid fa-water"></i>
+                        </div>
+                        <h2>Water Level</h2>
+                    </div>
+                    <span id="waterBadge" class="state-badge badge-water">Normal</span>
+                </div>
+
+                <div class="card-body card-body-split">
+                    <div class="water-info">
+                        <!-- Primary Value Display -->
+                        <div class="primary-metric">
+                            <span class="value" id="waterPercentVal">72.5</span>
+                            <span class="unit">%</span>
+                        </div>
+                        <div class="legacy-metric" id="waterLevel" style="display: none;">72.5 %</div>
+
+                        <!-- Secondary Metrics Breakdown -->
+                        <div class="metrics-grid vertical-gap">
+                            <div class="sub-metric">
+                                <span class="sub-label">Water Depth</span>
+                                <span class="sub-val" id="waterCmVal">21.8 cm</span>
+                            </div>
+                            <div class="sub-metric">
+                                <span class="sub-label">Air Gap (Sensor)</span>
+                                <span class="sub-val" id="waterAirGapVal">8.3 cm</span>
+                            </div>
+                            <div class="sub-metric">
+                                <span class="sub-label">Tank Max Height</span>
+                                <span class="sub-val">30.0 cm Tank</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dynamic 30 cm Vertical Tank Graphical Visualizer -->
+                    <div class="tank-visual-container" title="Interactive 30cm Tank Water Fill Level">
+                        <div class="tank-ruler">
+                            <span>30cm</span>
+                            <span>15cm</span>
+                            <span>0cm</span>
+                        </div>
+                        <div class="tank-cylinder">
+                            <div class="sensor-head" title="HC-SR04 Ultrasonic Sensor Mounted at Top">
+                                <i class="fa-solid fa-eye"></i> HC-SR04
+                            </div>
+                            <div id="tankWaterFill" class="tank-water-fill" style="height: 72.5%;">
+                                <div class="water-waves"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>SensorGrid Telemetry System &copy; 2026 | Full-Stack Web Development & IoT Solution</p>
+        </footer>
     </div>
 
+    <!-- Client-Side Scripts -->
+    <script src="sensor.js"></script>
     <script src="script.js"></script>
-
 </body>
 </html>

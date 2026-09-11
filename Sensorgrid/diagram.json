@@ -1,0 +1,73 @@
+{
+  "version": 1,
+  "author": "Yadav C Meghasyam",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "wokwi-esp32-devkit-v1", "id": "esp", "top": 0, "left": 0, "attrs": {} },
+    {
+      "type": "wokwi-hc-sr04",
+      "id": "ultrasonic",
+      "top": -140,
+      "left": 120,
+      "attrs": { "distance": "8.3" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led_green",
+      "top": 150,
+      "left": -120,
+      "attrs": { "color": "green", "label": "Normal Level" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led_yellow",
+      "top": 150,
+      "left": -60,
+      "attrs": { "color": "yellow", "label": "Tank Full" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led_red",
+      "top": 150,
+      "left": 0,
+      "attrs": { "color": "red", "label": "Low Water" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r1",
+      "top": 210,
+      "left": -120,
+      "attrs": { "value": "220" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r2",
+      "top": 210,
+      "left": -60,
+      "attrs": { "value": "220" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r3",
+      "top": 210,
+      "left": 0,
+      "attrs": { "value": "220" }
+    }
+  ],
+  "connections": [
+    [ "esp:GND.1", "ultrasonic:GND", "black", [ "v0" ] ],
+    [ "esp:3V3", "ultrasonic:VCC", "red", [ "v0" ] ],
+    [ "esp:D5", "ultrasonic:TRIG", "blue", [ "v0" ] ],
+    [ "esp:D18", "ultrasonic:ECHO", "green", [ "v0" ] ],
+    [ "esp:D2", "led_green:A", "green", [ "v0" ] ],
+    [ "led_green:C", "r1:1", "black", [ "v0" ] ],
+    [ "r1:2", "esp:GND.1", "black", [ "v0" ] ],
+    [ "esp:D4", "led_yellow:A", "gold", [ "v0" ] ],
+    [ "led_yellow:C", "r2:1", "black", [ "v0" ] ],
+    [ "r2:2", "esp:GND.1", "black", [ "v0" ] ],
+    [ "esp:D15", "led_red:A", "red", [ "v0" ] ],
+    [ "led_red:C", "r3:1", "black", [ "v0" ] ],
+    [ "r3:2", "esp:GND.1", "black", [ "v0" ] ]
+  ],
+  "dependencies": {}
+}

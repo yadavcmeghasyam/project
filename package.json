@@ -1,0 +1,10 @@
+{
+  "name": "trustlens-ai",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "powershell -ExecutionPolicy Bypass -File ./start_all.ps1",
+    "backend": "cd backend && python run.py",
+    "frontend": "cd frontend && npm run dev"
+  }
+}

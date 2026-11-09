@@ -51,3 +51,4 @@ export default function ScoreBadge({ score, riskLevel, showIcon = true, size = '
     </span>
   );
 }
+

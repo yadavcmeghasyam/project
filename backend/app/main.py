@@ -67,3 +67,4 @@ async def root():
         "docs_url": "/docs",
         "health_check": "/health"
     }
+

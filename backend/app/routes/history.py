@@ -31,3 +31,4 @@ async def delete_single_evaluation(eval_id: str):
     if not success:
         raise HTTPException(status_code=404, detail=f"Evaluation with ID '{eval_id}' was not found or could not be deleted.")
     return {"status": "success", "message": f"Evaluation '{eval_id}' deleted successfully."}
+

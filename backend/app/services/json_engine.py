@@ -145,3 +145,4 @@ def validate_json_structure(
         field_count=field_count,
         validated_at=datetime.now(timezone.utc).isoformat()
     )
+

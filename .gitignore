@@ -1,28 +1,72 @@
-# Node / Frontend
+# Node.js / Frontend
+node_modules/
 frontend/node_modules/
 frontend/dist/
 frontend/.env
-frontend/.env.local
+frontend/.env.*
+!frontend/.env.example
 
 # Python / Backend
+__pycache__/
 backend/__pycache__/
 backend/app/__pycache__/
 backend/app/*/__pycache__/
 backend/app/**/__pycache__/
-*.pyc
-*.pyo
+*.py[cod]
+*$py.class
 *.pyd
-.env
-backend/.env
+*.so
+.Python
+env/
 venv/
 .venv/
-env/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
 
-# IDE / OS
-.vscode/
-.idea/
+# Secrets and Environment Variables
+.env
+.env.*
+!.env.example
+backend/.env
+backend/.env.*
+!backend/.env.example
+*.pem
+*.key
+*.cert
+secrets.json
+
+# Local Demo Database Cache
+backend/app/database/local_evaluations.json
+
+# Operating Systems & IDEs
 .DS_Store
 Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
 
-# Database Local Demo Cache
-backend/app/database/local_evaluations.json
+# Logs & Temporary files
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.system_generated/
+scratch/

@@ -10,3 +10,4 @@ async def test_prompt_injection(req: PromptInjectionRequest):
         prompt=req.prompt,
         sample_response=req.sample_response
     )
+

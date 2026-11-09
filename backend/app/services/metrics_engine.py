@@ -54,3 +54,4 @@ def calculate_performance(
         model_name=model_name,
         evaluated_at=datetime.now(timezone.utc).isoformat()
     )
+

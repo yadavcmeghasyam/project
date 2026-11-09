@@ -56,3 +56,4 @@ def extract_claims(ai_answer: str) -> List[str]:
         claims = [clean_sentence(ai_answer.strip())]
 
     return claims
+

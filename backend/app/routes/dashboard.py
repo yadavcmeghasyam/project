@@ -29,3 +29,4 @@ async def get_system_settings_status():
         "openai_configured": bool(settings.OPENAI_API_KEY or os.environ.get("OPENAI_API_KEY")),
         "default_model": settings.DEFAULT_MODEL
     }
+

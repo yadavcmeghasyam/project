@@ -153,3 +153,4 @@ class DashboardStatsResponse(BaseModel):
     score_distribution: List[Dict[str, Any]]
     database_status: str
     database_type: str
+

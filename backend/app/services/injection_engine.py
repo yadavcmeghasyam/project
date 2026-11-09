@@ -154,3 +154,4 @@ def analyze_prompt_injection(prompt: str, sample_response: str = None) -> Prompt
         recommendations=recommendations,
         tested_at=datetime.now(timezone.utc).isoformat()
     )
+

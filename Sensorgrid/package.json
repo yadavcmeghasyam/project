@@ -1,0 +1,27 @@
+{
+  "name": "sensorgrid-water-level-simulator",
+  "version": "1.0.0",
+  "description": "Full-Stack Web Development SensorGrid Dashboard with JavaScript Sensor Simulator & ESP32 HC-SR04 Water Level Monitor",
+  "main": "app.js",
+  "scripts": {
+    "start": "npx http-server -p 3000 -o",
+    "dev": "npx http-server -p 3000 -c-1",
+    "test": "node sensor.js"
+  },
+  "keywords": [
+    "javascript",
+    "sensor-simulator",
+    "water-level-monitoring",
+    "esp32",
+    "hc-sr04",
+    "wokwi",
+    "dom-manipulation",
+    "setInterval",
+    "fullstack"
+  ],
+  "author": "Yadav C Meghasyam",
+  "license": "ISC",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}
